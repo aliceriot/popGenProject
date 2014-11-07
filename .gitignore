@@ -3,3 +3,4 @@ data/*
 testfile.txt
 snpInfo.txt
 populations.txt
+__*
