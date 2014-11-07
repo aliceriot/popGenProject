@@ -37,7 +37,9 @@ if sys.argv[-1] == '--stats':
         print(cluster(i).stats)
 
 
-#if sys.argv[2] == 'dadi':
+if sys.argv[2] == 'dadi':
+    for i in goodData:
+        print(cluster(i).outputDadi())
 
 
 
