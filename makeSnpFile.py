@@ -41,7 +41,9 @@ header = "Inpop\tOutpop\tAllele1\t1\t2\t3\tAllele2\t1\t2\t3\tClstr\tPosition"
 if sys.argv[-1] == '--dadi':
     print(header)
     for i in goodData:
-        print(cluster(i).outputDadi())
+        currentCluster = cluster(i).outputDadi()
+        if currentCluster != None:
+            print(currentCluster)
 
 
 
