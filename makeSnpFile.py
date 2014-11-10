@@ -36,8 +36,10 @@ if sys.argv[-1] == '--stats':
     for i in goodData:
         print(cluster(i).stats)
 
+header = "Inpop\tOutpop\tAllele1\t1\t2\t3\tAllele2\t1\t2\t3\tClstr\tPosition"
 
-if sys.argv[2] == 'dadi':
+if sys.argv[-1] == '--dadi':
+    print(header)
     for i in goodData:
         print(cluster(i).outputDadi())
 
