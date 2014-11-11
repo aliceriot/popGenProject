@@ -54,6 +54,9 @@ class cluster:
 
             for line in self.lines[2:]:
                 splitIt = line.split('\t')
+                if splitIt[1] == '.':
+                    continue
+
                 pop = populations[splitIt[0]]
 
                 #allele counts
