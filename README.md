@@ -6,8 +6,11 @@ analysis.
 
 Usage:
 
-    python makeSnpFile.py inputFile.out --dadi
+    python makeSnpFile.py inputFile.out --dadi > outputFile.txt
 
 Or, for help:
 
     python makeSnpFile.py --help
+
+This will give you an `outputFile.txt` which you can use to generate an allele
+frequency spectrum using dadi.
