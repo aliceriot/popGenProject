@@ -87,7 +87,7 @@ class cluster:
                     if allele not in dadiDict[pop]:
                         dadiDict[pop][allele] = 0
 
-            snpStrings.append(str(inAllele + '\t' + outAllele + '\t' + \
+            snpStrings.append(str(inAllele + '\t' + '-' + outAllele + '-' + '\t' + \
                     alleleList[0] + '\t' + \
                     str(dadiDict[1][alleleList[0]]) + '\t' + \
                     str(dadiDict[2][alleleList[0]]) + '\t' + \
