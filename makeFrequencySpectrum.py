@@ -15,5 +15,15 @@ fs = dadi.Spectrum.from_data_dict(dd, ['1','2','3'],[20,20,20])
 newfs = dadi.Spectrum.from_data_dict(dd, ['1','2'],[20,20])
 
 import pylab
+
 dadi.Plotting.plot_single_2d_sfs(newfs, vmin=0.1)
+
+pylab.show()
+
+#make a 'scrambled' plot
+
+scrambled = newfs.scramble_pop_ids()
+
+dadi.Plotting.plot_single_2d_sfs(scrambled, vmin=0.1)
+
 pylab.show()

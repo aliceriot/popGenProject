@@ -3,6 +3,9 @@ data/*
 testfile.txt
 snpInfo.txt
 populations.txt
+mySnps.txt
 __*
 hunsteinASnp.txt
 hunsteinAsnpFile.txt
+*.png
+*.pyc
