@@ -8,7 +8,7 @@ import ourDemographicModel
 dd = dadi.Misc.make_data_dict('hunsteinAsnpFile.txt')
 
 ####AFS generation
-fs = dadi.Spectrum.from_data_dict(dd, ['1','2'],[38,34])
+fs = dadi.Spectrum.from_data_dict(dd, ['1','2'],[19,17])
 ns = fs.sample_sizes
 
 ####SET UP THE GRID

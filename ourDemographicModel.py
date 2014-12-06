@@ -1,6 +1,24 @@
 import numpy
 import dadi
 
+def asymmetricalMigration((parameters), ns, pts):
+    """
+    Here we'll make our new model! This will be our really simple one to
+    start with.
+    """
+    nu1,nu2,T,m12,m21 = parameters
+
+    xx = dadi.Numerics.default_grid(pts)
+
+    phi = dadi.PhiManip.phi_1D(xx)
+    phi = dadi.PhiManip.phi_1D_to_2D(xx, phi)
+
+    phi = dadi.Integration.two_pops(phi, xx, T, nu1,nu2,m12=m12,m21=m21)
+
+    fs = dadi.Spectrum.from_phi(phi, ns, (xx,xx))
+    return fs
+
+
 def hunsteiniModel((parameters), ns, pts):
     """
     Here we'll make our new model! This will be our really simple one to
