@@ -18,6 +18,25 @@ def asymmetricalMigration((parameters), ns, pts):
     fs = dadi.Spectrum.from_phi(phi, ns, (xx,xx))
     return fs
 
+def asymmetrical_mscore((nu1F, nu2B, nu2F, m, T)):
+    """
+    ms core command corresponding to prior_onegrow_mig
+    """
+    # Growth rate
+    alpha2 = numpy.log(nu2F/nu2B)/T
+
+    command = "-n 1 %(nu1F)f -n 2 %(nu2F)f "\
+            "-eg 0 2 %(alpha2)f "\
+            "-ma x %(m)f %(m)f x "\
+            "-ej %(T)f 2 1 "\
+            "-en %(Tsum)f 1 1"
+
+    # There are several factors of 2 necessary to convert units between dadi
+    # and ms.
+    sub_dict = {'nu1F':nu1F, 'nu2F':nu2F, 'alpha2':2*alpha2,
+                'm':2*m, 'T':T/2, 'Tsum':(T+Tp)/2}
+
+    return command % sub_dict
 
 def hunsteiniModel((parameters), ns, pts):
     """

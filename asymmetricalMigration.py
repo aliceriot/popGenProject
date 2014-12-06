@@ -18,9 +18,9 @@ pts_l = [60,70,80]
 func = ourDemographicModel.asymmetricalMigration
 
 ####MODEL PARAMETERS
-# nu1, nu2, T, m
+# nu1, nu2, T, m12, m21
 params = array([0.5, 0.4, 0.05, 1.2,1.2])
-upper_bound = [100, 100, 3, 3, 3]
+upper_bound = [100, 100, 10, 20, 20]
 lower_bound = [1e-2, 1e-2, 0, 0, 0]
 
 ####EXTRAPOLATING FUNCTION
@@ -55,7 +55,19 @@ pylab.figure()
 dadi.Plotting.plot_2d_comp_multinom(model, fs, vmin = 1, resid_range = 3,
         pop_ids = ('1','2'))
 
-
+# ####MS STUFF
+# mscore = ourDemographicModel.prior_onegrow_mig_mscore(params)
+# # I find that it's most efficient to simulate with theta=1 and then scale up.
+# mscommand = dadi.Misc.ms_command(1., ns, mscore, int(1e6))
+# ## We use Python's os module to call this command from within the script.
+# ## If you have ms installed, uncomment these lines to see the results.
+# import os
+# os.system('%s > test.msout' % mscommand)
+# msdata = dadi.Spectrum.from_ms_file('test.msout')
+# pylab.figure()
+# dadi.Plotting.plot_2d_comp_multinom(model, theta*msdata, vmin=1,
+#                                     pop_ids=('YRI','CEU'))
+# pylab.show()
 
 
 

@@ -53,9 +53,9 @@ func = ourDemographicModel.hunsteiniModel
 paramsForSimpleModel = array([1.881, 0.0710, 1.845, 0.911])
 
 #these help the process go more quickly? or something
-upper_bound = [100, 100, 100, 100, 3, 3]
+upper_bound = [100, 100, 3,3]
 
-lower_bound = [1e-2, 1e-2, 1e-2, 0, 0, 0]
+lower_bound = [1e-2, 1e-2, 0,0]
 
 # Make the extrapolating version of our demographic model function.
 func_ex = dadi.Numerics.make_extrap_log_func(func)
@@ -105,18 +105,18 @@ dadi.Plotting.plot_2d_comp_multinom(model, newfs, vmin=1, resid_range=3,
 pylab.savefig('YRI_CEU.png', dpi=50)
 
 # Let's generate some data using ms, if you have it installed.
-mscore = ourDemographicModel.prior_onegrow_mig_mscore(params)
+mscore = ourDemographicModel.prior_onegrow_mig_mscore(paramsForSimpleModel)
 # I find that it's most efficient to simulate with theta=1 and then scale up.
 mscommand = dadi.Misc.ms_command(1., ns, mscore, int(1e6))
 ## We use Python's os module to call this command from within the script.
 ## If you have ms installed, uncomment these lines to see the results.
-#import os
-#os.system('%s > test.msout' % mscommand)
-#msdata = dadi.Spectrum.from_ms_file('test.msout')
-#pylab.figure()
-#dadi.Plotting.plot_2d_comp_multinom(model, theta*msdata, vmin=1,
-#                                    pop_ids=('YRI','CEU'))
-#pylab.show()
+import os
+os.system('%s > test.msout' % mscommand)
+msdata = dadi.Spectrum.from_ms_file('test.msout')
+pylab.figure()
+dadi.Plotting.plot_2d_comp_multinom(model, theta*msdata, vmin=1,
+                                    pop_ids=('YRI','CEU'))
+pylab.show()
 
 # Below here we compare uncertainty estimates from folded and unfolded spectra.
 # Estimates are done using the hessian (Fischer Information Matrix).
