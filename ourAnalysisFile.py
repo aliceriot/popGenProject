@@ -26,22 +26,16 @@ ns = newfs.sample_sizes
 
 ####SETTING STUFF UP
 # I don't really get what these do...
-pts_l = [40,50,60]
-
-####EXAMPLE CODE w/ simple model
-# The Demographics1D and Demographics2D modules contain a few simple models,
-# mostly as examples. We could use one of those.
-func = dadi.Demographics2D.split_mig
-# ll for this model: -1136.61
-params = array([1.792, 0.426, 0.309, 1.551])
-upper_bound = [100, 100, 3, 20]
+# pts_l = [40,50,60]
+pts_l = [40,50]
+# manual says to adjust this in some way...
 
 
 ####REAL CODE w/ model from demographic models
-func = ourDemographicModel.prior_onegrow_mig
+func = ourDemographicModel.hunsteiniModel
 
 # PARAMETERS! ok, so there are:
-# recall that this model is for a model with growth, split, bottleneck
+# recall that this model is for a model hunsteiniModel
 # in pop 2, recovery and then migration
 
 #     nu1F: The ancestral population size after growth. (Its initial size is
@@ -55,7 +49,8 @@ func = ourDemographicModel.prior_onegrow_mig
 #     n1,n2: Size of fs to generate.
 #     pts: Number of points to use in grid for evaluation.
     
-params = array([1.881, 0.0710, 1.845, 0.911, 0.355, 0.111])
+# params = array([1.881, 0.0710, 1.845, 0.911, 0.355, 0.111])
+paramsForSimpleModel = array([1.881, 0.0710, 1.845, 0.911])
 
 #these help the process go more quickly? or something
 upper_bound = [100, 100, 100, 100, 3, 3]
@@ -67,7 +62,7 @@ func_ex = dadi.Numerics.make_extrap_log_func(func)
 
 # Calculate the model AFS, with the extrapolated model function from
 # above
-model = func_ex(params, ns, pts_l)
+model = func_ex(paramsForSimpleModel, ns, pts_l)
 
 # Likelihood of the data given the model AFS.
 ll_model = dadi.Inference.ll_multinom(model, newfs)
@@ -77,7 +72,7 @@ theta = dadi.Inference.optimal_sfs_scaling(model, newfs)
 
 # Perturb our parameter array before optimization. This does so by taking each
 # parameter a up to a factor of two up or down.
-p0 = dadi.Misc.perturb_params(params, fold=1, upper_bound=upper_bound)
+p0 = dadi.Misc.perturb_params(paramsForSimpleModel, fold=1, upper_bound=upper_bound)
 # Do the optimization. By default we assume that theta is a free parameter,
 # since it's trivial to find given the other parameters. If you want to fix
 # theta, add a multinom=False to the call.
@@ -87,7 +82,7 @@ p0 = dadi.Misc.perturb_params(params, fold=1, upper_bound=upper_bound)
 popt = dadi.Inference.optimize_log(p0, newfs, func_ex, pts_l, 
                                    lower_bound=lower_bound,
                                    upper_bound=upper_bound,
-                                   verbose=len(params),
+                                   verbose=len(paramsForSimpleModel),
                                    maxiter=3)
 print 'Optimized parameters', repr(popt)
 model = func_ex(popt, ns, pts_l)
@@ -110,7 +105,7 @@ dadi.Plotting.plot_2d_comp_multinom(model, newfs, vmin=1, resid_range=3,
 pylab.savefig('YRI_CEU.png', dpi=50)
 
 # Let's generate some data using ms, if you have it installed.
-mscore = demographic_models.prior_onegrow_mig_mscore(params)
+mscore = ourDemographicModel.prior_onegrow_mig_mscore(params)
 # I find that it's most efficient to simulate with theta=1 and then scale up.
 mscommand = dadi.Misc.ms_command(1., ns, mscore, int(1e6))
 ## We use Python's os module to call this command from within the script.
