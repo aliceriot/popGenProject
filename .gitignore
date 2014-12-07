@@ -1,5 +1,6 @@
 data/*
 *.swp
+*.dadi
 testfile.txt
 snpInfo.txt
 populations.txt

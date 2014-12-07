@@ -52,6 +52,10 @@ class cluster:
             dadiDict = {1:{}, 2:{}, 3:{}}
             alleleList = []
 
+            #get surrounding bases
+            inFlanking = []
+            outFlanking = []
+
             for line in self.lines[2:]:
                 splitIt = line.split('\t')
                 if splitIt[1] == '.':
@@ -65,6 +69,30 @@ class cluster:
                     dadiDict[pop][snpStates[i]] += 1
                 else:
                     dadiDict[pop][snpStates[i]] = 1
+
+                #check for flanking bases
+                snpString = splitIt[1]
+                if pop == 1:
+                    if inFlanking == []:
+                        checkSnp = int(useSnp)
+                        try:
+                            inFlanking.append(snpString[checkSnp-1])
+                        except:
+                            inFlanking.append('-')
+                        try:
+                            inFlanking.append(snpString[checkSnp+1])
+                        except:
+                            inFlanking.append('-')
+                if pop == 2:
+                    if outFlanking == []:
+                        try:
+                            outFlanking.append(snpString[checkSnp-1])
+                        except:
+                            outFlanking.append('-')
+                        try:
+                            outFlanking.append(snpString[checkSnp+1])
+                        except:
+                            outFlanking.append('-')
 
                 #allele states
                 if snpStates[i] not in alleleList:
@@ -87,7 +115,8 @@ class cluster:
                     if allele not in dadiDict[pop]:
                         dadiDict[pop][allele] = 0
 
-            snpStrings.append(str(inAllele + '\t' + '-' + outAllele + '-' + '\t' + \
+            snpStrings.append(str(inFlanking[0] + inAllele + inFlanking[1] + \
+                    '\t' + outFlanking[0] + outAllele + outFlanking[1] + '\t' + \
                     alleleList[0] + '\t' + \
                     str(dadiDict[1][alleleList[0]]) + '\t' + \
                     str(dadiDict[2][alleleList[0]]) + '\t' + \
