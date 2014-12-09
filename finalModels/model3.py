@@ -15,7 +15,7 @@ ns = fs.sample_sizes
 pts_l = [60,70,80]
 
 ####GET THE MODEL
-func = models.modelTwo
+func = models.modelThree
 
 ####MODEL PARAMETERS
 # s, nu1, nu2, T, m12
