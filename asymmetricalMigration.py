@@ -5,7 +5,7 @@ import ourDemographicModel
 
 
 ####DATA IMPORT
-dd = dadi.Misc.make_data_dict('hunsteinAsnpFile.txt')
+dd = dadi.Misc.make_data_dict('hunsteiniSnpFile.dadi')
 
 ####AFS generation
 fs = dadi.Spectrum.from_data_dict(dd, ['1','2'],[19,17])
