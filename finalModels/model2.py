@@ -53,7 +53,7 @@ print 'Optimized log-likelihood:', ll_opt
 import pylab
 pylab.figure()
 dadi.Plotting.plot_2d_comp_multinom(model, fs, vmin = 1, resid_range = 3,
-        pop_ids = ('1','2'))
+        pop_ids = ('New Ireland','New Hanover'))
 
 # ####MS STUFF
 # mscore = ourDemographicModel.prior_onegrow_mig_mscore(params)

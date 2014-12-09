@@ -19,7 +19,7 @@ func = models.modelOne
 
 ####MODEL PARAMETERS
 # s, nu1, nu2, T
-params = array([0.5, 0.4, 0.4, 0.05])
+params = array([0.1, 0.1, 0.1, 0.05])
 upper_bound = [1, 100, 100, 10]
 lower_bound = [1e-2, 1e-2, 0, 0]
 
@@ -53,7 +53,7 @@ print 'Optimized log-likelihood:', ll_opt
 import pylab
 pylab.figure()
 dadi.Plotting.plot_2d_comp_multinom(model, fs, vmin = 1, resid_range = 3,
-        pop_ids = ('1','2'))
+        pop_ids = ('New Ireland','New Hanover'))
 
 # ####MS STUFF
 # mscore = ourDemographicModel.prior_onegrow_mig_mscore(params)
